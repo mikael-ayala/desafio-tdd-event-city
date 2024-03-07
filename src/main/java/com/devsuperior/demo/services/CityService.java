@@ -22,4 +22,11 @@ public class CityService {
 
         return cities.stream().map(CityDTO::new).sorted(Comparator.comparing(CityDTO::getName)).toList();
     }
+
+    @Transactional
+    public CityDTO insert(CityDTO cityDTO) {
+        City city = new City(null, cityDTO.getName());
+        city = cityRepository.save(city);
+        return new CityDTO(city);
+    }
 }
